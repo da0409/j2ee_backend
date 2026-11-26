@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    # H2 内存数据库，MySQL 兼容模式；MODE=MySQL 便于执行本地 MySQL 风格的 SQL
+    url: jdbc:h2:mem:campus_test;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password: ""
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.campus.user.entity,com.campus.activity.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+app:
+  jwt:
+    secret: test-only-secret-key-for-campus-activity-platform-2026
+    expiration-hours: 1
+  cors:
+    allowed-origins: http://localhost:5173
+  security:
+    public-paths: >-
+      /api/auth/**,
+      /api/activities,
+      /api/activities/*,
+      /api/activities/categories,
+      /api/activities/*/participants/count,
+      /error
